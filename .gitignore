@@ -1,0 +1,23 @@
+# --- Virtual Environment ---
+bill_env/
+venv/
+.env/
+*.env
+
+# --- Python Cache ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- Credentials / Secrets ---
+gcp-creds.json
+
+# --- Local Data Files ---
+*.csv
+*.xml
+
+# --- OS / Editor Files ---
+.DS_Store
+.vscode/
+.idea/
