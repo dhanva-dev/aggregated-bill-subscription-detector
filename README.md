@@ -9,16 +9,6 @@
 
 An end-to-end data engineering pipeline that transforms raw, unstructured SMS text into actionable financial insights. This project automates the detection of "phantom" subscriptions and spending anomalies using LLMs and statistical analysis.
 
-## 📸 Dashboard Preview
-
-### Financial Overview
-![Dashboard Overview](dashboard/dashboard_overview.png)
-*Tracks monthly spending trends and category breakdowns.*
-
-### Subscription Deep-Dive
-![Subscription Analysis](dashboard/dashboard_subscriptions.png)
-*Identifies recurring payments and flags statistical anomalies (Z-Score).*
-
 ---
 
 ## 🚀 Project Overview
@@ -35,27 +25,6 @@ In a world of digital payments, financial data is often trapped in unstructured 
 
 ---
 
-## 🏗️ Architecture
-
-```mermaid
-graph LR
-    A[Raw SMS XML] -->|Ingest| B(PostgreSQL Staging)
-    B -->|Pre-Filter (Regex)| C{Is Transaction?}
-    C -->|No| D[Junk/OTP]
-    C -->|Yes| E[Groq API / Llama-3]
-    E -->|Structured JSON| F[(Google BigQuery)]
-    F -->|SQL Modeling| G[Analytical Tables]
-    G -->|SciPy Analysis| H[Anomaly Detection]
-    G -->|Connect| I[Power BI Dashboard]
-````
-
-### Key Engineering Decisions
-
-  * **Hybrid Filtering:** Instead of sending 100k messages to the AI (costly/slow), I implemented a strict **Regex Pre-filter** layer in Python. This reduced the API load by \~90%, sending only high-confidence transaction messages to the LLM.
-  * **Idempotency:** The pipeline handles deduplication using message hashing, ensuring the process can be re-run without creating duplicate records.
-  * **Resilience:** The ingestion script handles diverse edge cases in XML parsing, and the API connector manages rate limits (`429`) automatically.
-
------
 
 ## 🛠️ Tech Stack
 
